@@ -1,6 +1,8 @@
 package com.sia.assignment.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.locationtech.jts.geom.Polygon;
 
@@ -8,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@NoArgsConstructor
 @Getter @Setter
 @Entity
 public class Aoi {
@@ -19,4 +22,10 @@ public class Aoi {
     private String name;
 
     private Polygon area;
+
+    @Builder
+    public Aoi(String name, Polygon area){
+        this.name = name;
+        this.area = area;
+    }
 }
