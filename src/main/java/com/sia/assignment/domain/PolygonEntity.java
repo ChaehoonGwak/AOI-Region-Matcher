@@ -7,6 +7,7 @@ import org.locationtech.jts.geom.Polygon;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @NoArgsConstructor
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 public class PolygonEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Polygon polygon;

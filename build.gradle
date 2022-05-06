@@ -31,10 +31,11 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/org.hibernatespatial/hibernate-spatial-postgis
 //	implementation group: 'org.hibernatespatial', name: 'hibernate-spatial-postgis', version: '1.1.1'
-	implementation group: 'org.hibernate', name: 'hibernate-spatial', version: '5.4.4.Final'
-	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.32.Final'
+	implementation group: 'org.hibernate', name: 'hibernate-spatial'
+//	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.32.Final'
 //	implementation group: 'org.hibernate.orm', name: 'hibernate-core', version: '6.0.0.Final'
 	implementation group: 'org.locationtech.jts', name: 'jts-core', version: '1.18.2'
+	implementation group: 'org.postgis', name: 'postgis-jdbc', version: '1.3.3'
 
 //	implementation group: 'com.github.MadaraFsl', name: 'HibernateUtil', version: '1.0'
 
