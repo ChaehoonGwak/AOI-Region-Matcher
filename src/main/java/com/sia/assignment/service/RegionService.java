@@ -26,16 +26,19 @@ public class RegionService {
     private final RegionRepository regionRepository;
     private final AoiRepository aoiRepository;
 
-    public Region getRegion(){
-        Region region = regionRepository.getById(3L);
+    public AreaResponseDto getRegion(Long regionId){
+        Region region = regionRepository.getById(regionId);
 
-        System.out.println(region.getId());
-        System.out.println(region.getName());
-        System.out.println(region.getArea());
-        return region;
+        AreaResponseDto areaResponseDto = AreaResponseDto.builder()
+                .id(region.getId())
+                .name(region.getName())
+                .area(region.getArea().toString())
+                .build();
+
+        return areaResponseDto;
     }
 
-    public void saveRegion(AreaRequestDto requestDto) throws ParseException {
+    public Long saveRegion(AreaRequestDto requestDto) throws ParseException {
         Polygon area = (Polygon)wktToGeometry(requestDto.getArea());
 
         Region region = Region.builder()
@@ -44,6 +47,7 @@ public class RegionService {
                 .build();
 
         regionRepository.save(region);
+        return region.getId();
     }
 
     public List<AreaResponseDto> intersectRegionAndAoi(Long regionId){

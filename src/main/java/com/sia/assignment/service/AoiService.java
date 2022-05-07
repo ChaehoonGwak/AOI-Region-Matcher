@@ -1,7 +1,6 @@
 package com.sia.assignment.service;
 
 import com.sia.assignment.domain.Aoi;
-import com.sia.assignment.domain.Region;
 import com.sia.assignment.dto.AreaRequestDto;
 import com.sia.assignment.repository.AoiRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AoiService {
     private final AoiRepository aoiRepository;
 
-    public void saveAoi(AreaRequestDto requestDto) throws ParseException {
+    public Long saveAoi(AreaRequestDto requestDto) throws ParseException {
         Polygon area= (Polygon)wktToGeometry(requestDto.getArea());
 
         Aoi aoi = Aoi.builder()
@@ -27,6 +26,7 @@ public class AoiService {
                 .build();
 
         aoiRepository.save(aoi);
+        return aoi.getId();
     }
 
     private Geometry wktToGeometry(String wellKnownText) throws ParseException {

@@ -1,22 +1,16 @@
 package com.sia.assignment.controller;
 
-import com.sia.assignment.domain.Aoi;
-import com.sia.assignment.domain.Region;
+
+
 import com.sia.assignment.dto.AreaRequestDto;
 import com.sia.assignment.dto.AreaResponseDto;
 import com.sia.assignment.service.RegionService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.io.ParseException;
-import org.locationtech.jts.io.WKTReader;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,27 +26,39 @@ public class RegionController {
 //    }
 
     @PostMapping("/regions")
-    public void saveRegion(@RequestBody AreaRequestDto requestDto) throws ParseException {
-        regionService.saveRegion(requestDto);
+    public ResponseEntity<?> saveRegion(@RequestBody AreaRequestDto requestDto) throws ParseException {
+        Long regionId;
+
+        try{
+            regionId = regionService.saveRegion(requestDto);
+        } catch(Exception e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<Long>(regionId, HttpStatus.OK);
     }
 
     @GetMapping("/regions/{regionId}/aois/intersects")
     public ResponseEntity<?> getAoiInRegion(@PathVariable Long regionId){
-        List<AreaResponseDto> aoiInRegionList = regionService.intersectRegionAndAoi(regionId);
+        List<AreaResponseDto> aoiInRegionList;
 
-        if(aoiInRegionList.isEmpty()){
-            return ResponseEntity.noContent().build();
+        try{
+            aoiInRegionList = regionService.intersectRegionAndAoi(regionId);
+        } catch(Exception e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(aoiInRegionList);
+        return new ResponseEntity<List<AreaResponseDto>>(aoiInRegionList, HttpStatus.OK);
     }
 
-    @GetMapping("/regions")
-    public ResponseEntity<?> getRegion(){
-        Region region = regionService.getRegion();
-        if(region == null){
-            return ResponseEntity.noContent().build();
+    @GetMapping("/regions/{regionId}")
+    public ResponseEntity<?> getRegion(@PathVariable Long regionId){
+        AreaResponseDto areaResponseDto;
+
+        try{
+            areaResponseDto = regionService.getRegion(regionId);
+        } catch(Exception e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(region);
+        return new ResponseEntity<AreaResponseDto>(areaResponseDto, HttpStatus.OK);
     }
 
 }

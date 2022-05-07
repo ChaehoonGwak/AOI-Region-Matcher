@@ -1,7 +1,6 @@
 package com.sia.assignment.dto;
 
 import lombok.*;
-import org.locationtech.jts.geom.Polygon;
 
 @NoArgsConstructor
 @Getter
