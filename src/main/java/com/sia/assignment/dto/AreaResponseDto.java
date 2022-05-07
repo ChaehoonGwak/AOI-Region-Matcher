@@ -11,10 +11,10 @@ public class AreaResponseDto {
 
     private String name;
 
-    private Polygon area;
+    private String area;
 
     @Builder
-    public AreaResponseDto(Long id, String name, Polygon area){
+    public AreaResponseDto(Long id, String name, String area){
         this.id = id;
         this.name = name;
         this.area = area;

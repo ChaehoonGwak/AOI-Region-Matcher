@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Aoi {
 
     @Id
+    @Column(name = "aoi_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 

@@ -39,16 +39,16 @@ class AssignmentApplicationTests {
 
     @Test
     public void saveRegion() throws ParseException {
-        String name = "서울시";
-        String area = "POLYGON ((126.835 37.688, 127.155 37.702, 127.184 37.474, 126.821 37.454, 126.835 37.688))";
-//        Polygon area = (Polygon) wktToGeometry("POLYGON ((126.835 37.688, 127.155 37.702, 127.184 37.474, 126.821 37.454, 126.835 37.688))");
-
-
-        AreaRequestDto requestDto = new AreaRequestDto(name, area);
-        Polygon polygon = (Polygon) wktToGeometry(requestDto.getArea());
-        Region region = requestDto.toEntity(polygon);
-
-        String url = "http://localhost:" + port + "/regions";
+//        String name = "서울시";
+//        String area = "POLYGON ((126.835 37.688, 127.155 37.702, 127.184 37.474, 126.821 37.454, 126.835 37.688))";
+////        Polygon area = (Polygon) wktToGeometry("POLYGON ((126.835 37.688, 127.155 37.702, 127.184 37.474, 126.821 37.454, 126.835 37.688))");
+//
+//
+//        AreaRequestDto requestDto = new AreaRequestDto(name, area);
+//        Polygon polygon = (Polygon) wktToGeometry(requestDto.getArea());
+//        Region region = requestDto.toEntity(polygon);
+//
+//        String url = "http://localhost:" + port + "/regions";
 
 //        ResponseEntity<Region> response = restTemplate.postForEntity(url, region, Region.class);
 

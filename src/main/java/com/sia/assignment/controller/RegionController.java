@@ -1,7 +1,9 @@
 package com.sia.assignment.controller;
 
+import com.sia.assignment.domain.Aoi;
 import com.sia.assignment.domain.Region;
 import com.sia.assignment.dto.AreaRequestDto;
+import com.sia.assignment.dto.AreaResponseDto;
 import com.sia.assignment.service.RegionService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,12 +11,13 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -33,9 +36,23 @@ public class RegionController {
         regionService.saveRegion(requestDto);
     }
 
+    @GetMapping("/regions/{regionId}/aois/intersects")
+    public ResponseEntity<?> getAoiInRegion(@PathVariable Long regionId){
+        List<AreaResponseDto> aoiInRegionList = regionService.intersectRegionAndAoi(regionId);
+
+        if(aoiInRegionList.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(aoiInRegionList);
+    }
+
     @GetMapping("/regions")
-    public void getRegion(){
-        regionService.getRegion();
+    public ResponseEntity<?> getRegion(){
+        Region region = regionService.getRegion();
+        if(region == null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(region);
     }
 
 }

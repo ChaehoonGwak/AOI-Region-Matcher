@@ -1,8 +1,11 @@
 package com.sia.assignment.service;
 
 
+import com.sia.assignment.domain.Aoi;
 import com.sia.assignment.domain.Region;
 import com.sia.assignment.dto.AreaRequestDto;
+import com.sia.assignment.dto.AreaResponseDto;
+import com.sia.assignment.repository.AoiRepository;
 import com.sia.assignment.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Geometry;
@@ -12,18 +15,24 @@ import org.locationtech.jts.io.WKTReader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Transactional
 @RequiredArgsConstructor
 @Service
 public class RegionService {
     private final RegionRepository regionRepository;
+    private final AoiRepository aoiRepository;
 
-    public void getRegion(){
-        Region region = regionRepository.getById(2L);
+    public Region getRegion(){
+        Region region = regionRepository.getById(3L);
 
         System.out.println(region.getId());
         System.out.println(region.getName());
         System.out.println(region.getArea());
+        return region;
     }
 
     public void saveRegion(AreaRequestDto requestDto) throws ParseException {
@@ -37,17 +46,31 @@ public class RegionService {
         regionRepository.save(region);
     }
 
-//    public void registerRegion(String name, String area) throws ParseException {
-//        Polygon polygon = (Polygon) wktToGeometry(area);
-//
-//        Region region = Region.builder()
-//                .name(name)
-//                .area(polygon)
-//                .build();
-//
-//        regionRepository.save(region);
-////        return true;
-//    }
+    public List<AreaResponseDto> intersectRegionAndAoi(Long regionId){
+        Optional<Region> region = regionRepository.findById(regionId);
+
+        System.out.println(region);
+        List<Aoi> aoiInRegionList = new ArrayList<>();
+
+        if(region == null){
+            return null;
+        }
+        else{
+            aoiInRegionList = aoiRepository.findAoiListInRegion(regionId);
+            List<AreaResponseDto> areaResponseDtoList = new ArrayList<>();
+
+            for (Aoi aoi: aoiInRegionList){
+                AreaResponseDto areaResponseDto = AreaResponseDto.builder()
+                        .id(aoi.getId())
+                        .name(aoi.getName())
+                        .area(aoi.getArea().toString())
+                        .build();
+                areaResponseDtoList.add(areaResponseDto);
+            }
+
+            return areaResponseDtoList;
+        }
+    }
 
     private Geometry wktToGeometry(String wellKnownText) throws ParseException {
         WKTReader fromText = new WKTReader();
