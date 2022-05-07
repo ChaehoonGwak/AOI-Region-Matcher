@@ -27,9 +27,12 @@ public class RegionService {
     }
 
     public void saveRegion(AreaRequestDto requestDto) throws ParseException {
-        Polygon polygon = (Polygon)wktToGeometry(requestDto.getArea());
+        Polygon area = (Polygon)wktToGeometry(requestDto.getArea());
 
-        Region region = requestDto.toEntity(polygon);
+        Region region = Region.builder()
+                .name(requestDto.getName())
+                .area(area)
+                .build();
 
         regionRepository.save(region);
     }
