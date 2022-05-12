@@ -9,16 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/aois")
 public class AoiConrtoller {
     private final AoiService aoiService;
 
-    @PostMapping("/aois")
-    public ResponseEntity<?> saveAoi(@RequestBody AreaRequestDto requestDto) throws ParseException {
+    @PostMapping
+    public ResponseEntity<?> saveAoi(@RequestBody AreaRequestDto requestDto){
         Long aoiId;
+
         try{
             aoiId = aoiService.saveAoi(requestDto);
         } catch(Exception e){

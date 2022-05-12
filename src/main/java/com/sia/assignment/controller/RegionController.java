@@ -16,17 +16,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/regions")
 public class RegionController {
     private final RegionService regionService;
 
-//    @PostMapping("/regions")
-//    public ResponseEntity<?> saveRegion(@RequestBody AreaRequestDto requestDto) throws ParseException {
-//        regionService.saveRegion(requestDto);
-//        return new ResponseEntity<Region>(HttpStatus.OK);
-//    }
-
-    @PostMapping("/regions")
-    public ResponseEntity<?> saveRegion(@RequestBody AreaRequestDto requestDto) throws ParseException {
+    @PostMapping
+    public ResponseEntity<?> saveRegion(@RequestBody AreaRequestDto requestDto){
         Long regionId;
 
         try{
@@ -37,7 +32,7 @@ public class RegionController {
         return new ResponseEntity<Long>(regionId, HttpStatus.OK);
     }
 
-    @GetMapping("/regions/{regionId}/aois/intersects")
+    @GetMapping("/{regionId}/aois/intersects")
     public ResponseEntity<?> getAoiInRegion(@PathVariable Long regionId){
         List<AreaResponseDto> aoiInRegionList;
 
@@ -49,7 +44,7 @@ public class RegionController {
         return new ResponseEntity<List<AreaResponseDto>>(aoiInRegionList, HttpStatus.OK);
     }
 
-    @GetMapping("/regions/{regionId}")
+    @GetMapping("/{regionId}")
     public ResponseEntity<?> getRegion(@PathVariable Long regionId){
         AreaResponseDto areaResponseDto;
 
