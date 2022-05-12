@@ -4,12 +4,12 @@ import com.sia.assignment.domain.Aoi;
 import com.sia.assignment.dto.AreaRequestDto;
 import com.sia.assignment.repository.AoiRepository;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.io.ParseException;
-import org.locationtech.jts.io.WKTReader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.sia.assignment.common.TypeConversion.wktToGeometry;
 
 @Transactional
 @RequiredArgsConstructor
@@ -29,12 +29,5 @@ public class AoiService {
         return aoi.getId();
     }
 
-    private Geometry wktToGeometry(String wellKnownText) throws ParseException {
-        WKTReader fromText = new WKTReader();
-        Geometry geom = null;
-        geom = fromText.read(wellKnownText);
-        System.out.println(geom);
-        System.out.println(geom.getClass());
-        return geom;
-    }
+
 }
