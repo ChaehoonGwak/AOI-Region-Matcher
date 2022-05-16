@@ -2,15 +2,12 @@ package com.sia.assignment.controller;
 
 
 import com.sia.assignment.dto.AreaRequestDto;
+import com.sia.assignment.dto.AreaResponseDto;
 import com.sia.assignment.service.AoiService;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.io.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,4 +26,20 @@ public class AoiConrtoller {
         }
         return new ResponseEntity<Long>(aoiId, HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<?> getNearestAoi(@RequestParam("lat") double lat, @RequestParam("long") double lng){
+        AreaResponseDto areaResponseDto;
+        System.out.println(lat);
+        System.out.println(lng);
+
+        try{
+            areaResponseDto = aoiService.getNearestAoi(lat, lng);
+        } catch(Exception e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<AreaResponseDto>(areaResponseDto, HttpStatus.OK);
+
+    }
+
 }

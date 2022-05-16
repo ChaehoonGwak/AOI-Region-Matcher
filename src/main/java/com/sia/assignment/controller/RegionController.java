@@ -6,7 +6,6 @@ import com.sia.assignment.dto.AreaRequestDto;
 import com.sia.assignment.dto.AreaResponseDto;
 import com.sia.assignment.service.RegionService;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.io.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
