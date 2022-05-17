@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/aois")
-public class AoiConrtoller {
+public class AoiController {
     private final AoiService aoiService;
 
     @PostMapping
@@ -30,8 +30,6 @@ public class AoiConrtoller {
     @GetMapping
     public ResponseEntity<?> getNearestAoi(@RequestParam("lat") double lat, @RequestParam("long") double lng){
         AreaResponseDto areaResponseDto;
-        System.out.println(lat);
-        System.out.println(lng);
 
         try{
             areaResponseDto = aoiService.getNearestAoi(lat, lng);

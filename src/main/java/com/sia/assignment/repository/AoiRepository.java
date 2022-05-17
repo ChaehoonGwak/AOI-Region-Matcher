@@ -18,11 +18,7 @@ public interface AoiRepository extends JpaRepository<Aoi, Long> {
             "where r.region_id = :regionId", nativeQuery = true)
     List<Aoi> findAoiListInRegion(@Param("regionId") Long regionId);
 
-//    @Query(value = "select a.aoi_id, a.name, a.area "+
-//            "from aoi as a " +
-//            "order by st_distance(a.area, ST_GeomFromText(:point, 4326), true) asc " +
-//            "limit 1", nativeQuery = true)
-//    Aoi findNearestAoiInCoordinates(@Param("point") String point);
+
     @Query(value = "select a.aoi_id, a.name, a.area "+
         "from aoi as a " +
         "order by st_distance(a.area, :point, true) asc " +
