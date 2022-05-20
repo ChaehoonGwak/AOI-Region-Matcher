@@ -9,17 +9,17 @@ docker run --name postgis -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgis/
 
 # API 실행 및 요청 가이드
 
-- [POST] http://{ip address}/regions
+- [POST] http://{ip address}/regions  
 행정지역의 이름, 전체 지리 정보를 저장합니다.
 
-- [POST] http://{ip address}/aois
+- [POST] http://{ip address}/aois  
 관심지역의 이름, 전체 지리 정보를 저장합니다.
 
-- [GET] http://{ip address}/regions/{region-id}/aois/intersects
+- [GET] http://{ip address}/regions/{region-id}/aois/intersects  
 행정지역에 지리적으로 포함되는 관심지역을 조회합니다.
 
-- [Get] http://{ip address}/regions/{region_id}
+- [Get] http://{ip address}/regions/{region_id}  
 행정지역의 id를 통해서 행정지역의 id, 이름, 전체 지리 정보를 조회합니다.
 
-- [Get] http://{ip address}/aois?lat={lat}&long={long}
+- [Get] http://{ip address}/aois?lat={lat}&long={long}  
 특정 좌표에 가장 가까운 관심지역을 조회합니다.
