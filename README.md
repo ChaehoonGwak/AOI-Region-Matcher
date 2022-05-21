@@ -1,5 +1,14 @@
 # AOI-Region-Matcher
 
+# 기술 스택
+- Java 11
+- Spring Boot 2.6.7
+- PostgreSQL
+- Postgis
+- Hibernate-spatial
+- JTS
+- Lombok
+
 # 서버 실행 방법
 JDK version 11.0.13
 Github에서 프로젝트를 다운받아 IntelliJ로 빌드 후 실행합니다.
